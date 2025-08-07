@@ -14,3 +14,4 @@ Repositorio del curso de metodos estadisticos del programa de metodos de ingenie
  +crear version control
  +bases para usop eficiente en R
  +Modificacion de readme
+ 
