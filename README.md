@@ -3,7 +3,7 @@
 
 Repositorio del curso de metodos estadisticos del programa de metodos de ingenieria forestal
 
-##contenido
+## contenido
 
 06/08/20205:inicio der curso de metodos estadisticos .
  + preparar mi area de trabajo
