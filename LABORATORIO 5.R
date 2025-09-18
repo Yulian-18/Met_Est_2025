@@ -1,11 +1,49 @@
-costal<- c(87.7, 80.01, 77.28, 78.76, 81.52, 74.2, 80.71, 79.5, 77.87, 81.94, 80.7,
-           82.32, 75.78, 80.19, 83.91, 79.4, 77.52, 77.62, 81.4, 74.89, 82.95,
-           73.59, 77.92, 77.18, 79.83, 81.23, 79.28, 78.44, 79.01, 80.47, 76.23,
-           78.89, 77.14, 69.94, 78.54, 79.7, 82.45, 77.29, 75.52, 77.21, 75.99,
-           81.94, 80.41, 77.7)
-mean(costal)
-var(costal)
-t.test (costal, mu=80)
+data_sub <- subset(iris, Species %in% c("versicolor", "virginica"))
+head(data_sub) #Muestra las primeras 6 filas 
+summary(data_sub) #Muestra la estructura de los datos
 
-boxplot(costal)
-col"pink"
+#Estadistica descriptiva 
+
+tapply(data_sub$Petal.Length,data_sub$Species, var)
+
+# ¿hay alguna diferencia significativa en el largo del petalo entre versicolor y virginica?
+
+##revisar homogeneidad de varianzas 
+var.test(Petal.Length ~ Species,
+         data = data_sub)
+
+#hacer una prueba de t de dos muestras independientes 
+# dos colas= two.sided
+t.test <-t.test(Petal.Length ~ Species, data=data_sub,
+                var.equal = FALSE)#Welch
+t.test
+
+#Calcular e interpretar el tamaño del efecto (Cohen’s d).
+# Instala si no lo tienes
+# install.packages("effsize")
+
+library(effsize)
+
+data_sub <- subset(iris, Species %in% c("versicolor", "virginica"))
+
+# Cohen's d clásico (SD agrupada)
+cohen.d(Petal.Length ~ Species, data = data_sub, hedges.correction = FALSE)
+
+# Hedges' g (Cohen's d con corrección por muestra pequeña)
+cohen.d(Petal.Length ~ Species, data = data_sub, hedges.correction = TRUE)
+
+
+boxplot(Petal.Length ~ Species,
+        data = data_sub,
+        col= c("lightblue",
+               "pink"),
+        main="Comparacion de Petal.Length",
+        ylab= "Petal.Length")
+
+library(ggplot2)
+ggplot(data_sub, aes(x = Species, y = Petal.Length)) +
+  geom_violin() +
+  ggtitle("Comparación de la Longitud del Pétalo entre Especies") +
+  xlab("Especie") +
+  ylab("Longitud del Pétalo (cm)")
+
