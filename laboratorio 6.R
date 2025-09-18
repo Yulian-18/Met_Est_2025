@@ -4,6 +4,8 @@
 sem<- read.csv("sem.csv", header = T)
 sem$Tiempo <-as.factor(sem$Tiempo)
 
+sem
+
 tapply(sem$Kgsem, sem$Tiempo, mean)
 
 boxplot(sem$Kgsem ~ sem$Tiempo,
@@ -11,10 +13,9 @@ boxplot(sem$Kgsem ~ sem$Tiempo,
         xlab= "Año",
         ylab = "Semilla (Kg)")
 
-t.test(sem$Kgsem ~ sem$Tiempo, paired= T)
-
 t2012 <-subset(sem, sem$Tiempo =="T2012")
 t2013 <-subset(sem, sem$Tiempo !="T2013")
+
 t.test(t2012$Kgsem, t2013$Kgsem, paired= T)
 
 
